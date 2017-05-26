@@ -1,71 +1,73 @@
 // JavaScript Document
 
-$(document).ready(function(e) {
-    document.addEventListener("deviceready", onDeviceReady,false);
+$(document).ready(function(e){
+	document.addEventListener("deviceready",onDeviceReady, false);
 	
 });
 
-function onDeviceready(){
+function  onDeviceReady(){
 	
-	$('posicion').on('click',function(){
+	$('#posicion').on('click',function(){
 		getPosition ();
 	});
 	
 	$('#watch').on('click',function(){
 		watchPosition ();
 	});
-
+	
 }
 
-	function getPosition(){
+function getPosition(){
 		
-		var options={
-			enableHighAccuracy :true,
-			maximunAge:3600000
-		}
+	var options ={
+		enableHighAccuracy: true,
+		maximumAge: 3600000
+	}
 		
-		var watchID = navigator.geolocation.getCurrentPosition(onSucess,onError,options);
+	var watchID=navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 		
-		function onSuccess(position) {
+function onSuccess(position){
 			
-			alert('Latitude:'	+ position.cords.latitude	+'\n' +
-				'longitude :'	+ position.cords.longitude	+'\n' +
-				'Altitude:'		+position.cords.altitude	+'\n' +
-				'Accuracy:'		+position.cords.accuracy	+'\n' +
-				'Altitud Accuracy:'		+position.cords.altitudeAccuracy	+'\n' +
-				'Heading:'		+position.cords.heading	+'\n' +
-				'Speed:'		+position.cords.speed	+'\n' +
-				'Timestamp:'		+position.timestamp	+'\n');
-		};
+	alert('Latitude:'       +position.coords.latitude       +'\n'+
+	'Longitude:'       +position.coords.longitude     +'\n'+
+	'Altitude:'       +position.coords.altitude       +'\n'+
+	'Accuracy:'       +position.coords.accuracy       +'\n'+
+	'Altitude Accuracy:'       +position.coords.altitudeAccuracy       +'\n'+
+	'Heading:'       +position.coords.heading      +'\n'+
+	'Speed:'       +position.coords.speed        +'\n'+
+	'Timestamp:'       +position.timestamp       +'\n');
+};
 		
-		function onError(error){
-			alert('code:'+	error.code	+'\n' +'message:' + error.message +'\n');
-		}
+	function onError(error){
+	  alert('code:'  +error.code   +'\n'+'message:'+error.message+'\n');
+	}
+}
+	
+function watchPosition(){
+		
+	var options={
+		maximumAge:3600000,
+		timeout:3000,
+		enableHighAccuracy :true,
 	}
 	
-	function watchPosition() {
-	
-		var options={
-			maximunAge : 3600000,
-			timeout:3000,
-			enableHighAccuracy : true
-		}
+	var watchID=navigator.geolocation.watchPosition(onSuccess,onError,options);
 		
-		var watchID=navigator.geolocation.watchPosition(onSucess,onError,options);
-		
-		function onSuccess(position) {
+	function onSuccess(position){
 			
-			$('#latitud').html(position.cords.latitude);
-			$('#longitud').html(position.cords.longitude);
-			$('#altitud').html(position.cords.altitude);
-			$('#accuracy').html(position.cords.accuracy);
-			$('#aaccuracy').html(position.cords.altitudeAccuracy);
-			$('#heading').html(position.cords.heading);
-			$('#speed').html(position.cords.speed);
-			$('#timestamp').html(position.timestamp);
-		};
+		$('#latitud').html(position.coords.latitude);
+		$('#longitud').html(position.coords.longitude);
+		$('#altitud').html(position.coords.altitude);
+		$('#accuracy').html(position.coords.accuracy);
+		$('#aaccuracy').html(position.coords.altitudeAccuracy);
+		$('#heading').html(position.coords.heading);
+		$('#speed').html(position.coords.speed);
+		$('#timestamp').html(position.timestamp);
+	};
 		
-			function onError(error){
-			alert('code:'+	error.code	+'\n' +'message:' + error.message +'\n');
-		}
+	function onError(error){
+	alert('code:'  +error.code  +'\n'+'message:'+error.message+'\n');
 	}
+		
+}
+	
